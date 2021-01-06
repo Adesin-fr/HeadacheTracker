@@ -21,3 +21,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/headache', 'HeadacheController@store')->middleware('auth');;
+
+Route::get('/export', 'HeadacheController@export')->name('export');
