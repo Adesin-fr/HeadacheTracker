@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Headache;
 use Carbon\Carbon;
-use http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -19,10 +18,10 @@ class HeadacheController extends Controller
         $user_id = Auth::id();
         Headache::create([
             "user_id" => $user_id,
-            "date" => \request("date"),
-            "time" => \request("time"),
-            "strength" => \request("strength"),
-            "comments" => \request("comment", ''),
+            "date" => request("date"),
+            "time" => request("time"),
+            "strength" => request("strength"),
+            "comments" => request("comment", ''),
         ]);
         return back();
     }
