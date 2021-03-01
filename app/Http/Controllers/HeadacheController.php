@@ -27,6 +27,13 @@ class HeadacheController extends Controller
         return back();
     }
 
+    public function destroy($id)
+    {
+        Headache::findOrFail($id)->delete();
+
+        return back();
+    }
+
     public function export()
     {
 

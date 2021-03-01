@@ -68,7 +68,7 @@
                         <b><u>Mes dernières migraines :</u></b>
                         <ul>
                             @foreach($lastHeadaches as $ha)
-                                <li>Le {{ $ha->date->format('d/m/Y') }} à {{ $ha->time }} ({{ $ha->strength  }}/10)</li>
+                                <li>Le {{ $ha->date->format('d/m/Y') }} à {{ $ha->time }} ({{ $ha->strength  }}/10) <a href="/headache/{{ $ha->id }}/delete">Effacer</a></li>
                             @endforeach
                         </ul>
 
