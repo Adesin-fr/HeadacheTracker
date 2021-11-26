@@ -58,8 +58,8 @@ class HeadacheController extends Controller
                 $sheet->setCellValueByColumnAndRow($col, 1, $carb->isoFormat("MMMM"));
                 $sheet->setCellValueByColumnAndRow($col, 2, $carb->format("Y"));
                 // Merge header cells :
-                $sheet->mergeCellsByColumnAndRow($col,1, $col+2,1);
-                $sheet->mergeCellsByColumnAndRow($col,2, $col+2,2);
+                $sheet->mergeCellsByColumnAndRow($col, 1, $col + 2, 1);
+                $sheet->mergeCellsByColumnAndRow($col, 2, $col + 2, 2);
                 // Now set days :
                 $lastDay = $carb->addMonth()->subDay()->day;
                 for ($day = 1; $day <= $lastDay; $day++) {
@@ -69,9 +69,9 @@ class HeadacheController extends Controller
                         $carb->format("d"),
                         \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING
                     );
-                    if ($carb->dayOfWeekIso>=6){
-                        $coord1 = $sheet->getCellByColumnAndRow($col, $day +2)->getCoordinate();
-                        $coord2 = $sheet->getCellByColumnAndRow($col+1, $day +2)->getCoordinate();
+                    if ($carb->dayOfWeekIso >= 6) {
+                        $coord1 = $sheet->getCellByColumnAndRow($col, $day + 2)->getCoordinate();
+                        $coord2 = $sheet->getCellByColumnAndRow($col + 1, $day + 2)->getCoordinate();
 
                         $sheet->getStyle($coord1)
                             ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
@@ -84,17 +84,19 @@ class HeadacheController extends Controller
                     }
                     // Auto resize columns :
                     $sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
-                    $sheet->getColumnDimensionByColumn($col+1)->setAutoSize(true);
-                    $sheet->getColumnDimensionByColumn($col+2)->setAutoSize(true);
+                    $sheet->getColumnDimensionByColumn($col + 1)->setAutoSize(true);
+                    $sheet->getColumnDimensionByColumn($col + 2)->setAutoSize(true);
 
                 }
             }
 
             $row = $headache->date->day + 2;
-            $sheet->setCellValueByColumnAndRow($col + 2, $row, $headache->time);
-            $sheet->getCellByColumnAndRow($col+2, $row)->getStyle()
+            $value = $sheet->getCellByColumnAndRow($col + 2, $row)->getValue() . " " . $headache->time;
+
+            $sheet->setCellValueByColumnAndRow($col + 2, $row, trim($value));
+            $sheet->getCellByColumnAndRow($col + 2, $row)->getStyle()
                 ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID);
-            $sheet->getCellByColumnAndRow($col+2, $row)->getStyle()
+            $sheet->getCellByColumnAndRow($col + 2, $row)->getStyle()
                 ->getFill()->getStartColor()->setARGB('FFFF9999');
 
         }
